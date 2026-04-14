@@ -21,31 +21,12 @@ public class ListaSecuencial {
 
     }
 
-    public boolean Insertar() {
-        int val = 0;
-        int pos = 0;
+    public boolean Insertar(int val, int pos) {
+
         if (llenas == 1000) {
             System.out.println(
                     "la lista se encuentra llena, si desea ingresar un dato primero debe limpiar la lista o eliminar un dato");
         } else {
-            do {
-                System.out.println("Que numero desea incluir en la lista (un numero de 0 a 1000)?");
-                val = sc.nextInt();
-
-                if (val < 0 || val > 1000) { // verificar los datos ingresados
-                    System.out.println("Valor fuera del rango, digite nuevamente");
-                }
-            } while (val < 0 || val > 1000);
-
-            do {
-                System.out.println("En que posicion desea incluirlo (1 a 1000)?");
-                pos = sc.nextInt();
-
-                if (pos < 1 || pos > 1000) { // verificar los datos ingresados
-                    System.out.println("Valor fuera del rango, digite nuevamente");
-                }
-            } while (pos < 1 || pos > 1000);
-
             if (lista[pos] != -1) { // verificar si la posicion esta llena
                 for (int i = 999; i >= pos; i--) {
                     lista[i] = lista[i - 1];
@@ -71,20 +52,8 @@ public class ListaSecuencial {
         return true;
     }
 
-    public boolean eliminarPosicion() {
+    public boolean eliminarPosicion(int posicion) {
         boolean flag = true;
-        int posicion = 0;
-        do {
-            System.out.println("Que posicion desea eliminar (1 a " + llenas + ")?");
-            posicion = sc.nextInt();
-
-            if (posicion < 1 || posicion > llenas) {
-                System.out.println("Valor fuera del rango, digite nuevamente");
-                flag = false;
-            }
-
-        } while (posicion < 1 || posicion > llenas);
-
         posicion--;
         for (int i = posicion; i < llenas - 1; i++) {
             lista[i] = lista[i + 1];
@@ -96,21 +65,9 @@ public class ListaSecuencial {
 
     }
 
-    public boolean eliminarDato() {
-        int val = 0;
-        boolean flag = true;
+    public boolean eliminarDato(int val) {
         int pos = -1;
-        ; // verifica si el dato existe
-        do {
-            System.out.println(
-                    "que dato desea eliminar (0 a 1000)? Si se dato se encuentra repetido solo se borrara el primero");
-            val = sc.nextInt();
-
-            if (val < 1 || val > 1000) { // verificar los datos ingresados
-                System.out.println("Valor fuera del rango, digite nuevamente");
-            }
-        } while (val < 1 || val > 1000);
-
+        boolean flag = true;
         for (int i = 0; i < lista.length; i++) {
             if (lista[i] == val) {
                 pos = i;
@@ -129,7 +86,7 @@ public class ListaSecuencial {
             flag = true;
 
         } else {
-            System.out.println("En esta posicion no hay nmigun dato actualmente");
+            System.out.println("Este dato no existe en la lista");
             flag = false;
         }
 
@@ -181,13 +138,13 @@ public class ListaSecuencial {
         for (int j = inicio; j < fin; j++) {
             if (lista[j] >= pivote) {
                 i++;
-                // intercambiar lista[i] y lista[j]
-                int temp = lista[i];
+
+                int temp = lista[i];// intercambiar lista[i] y lista[j]
                 lista[i] = lista[j];
                 lista[j] = temp;
             }
         }
-        // poner el pivote en su lugar correcto
+
         int temp = lista[i + 1];
         lista[i + 1] = lista[fin];
         lista[fin] = temp;
@@ -214,13 +171,12 @@ public class ListaSecuencial {
         for (int j = inicio; j < fin; j++) {
             if (lista[j] <= pivote) {
                 i++;
-                // intercambiar lista[i] y lista[j]
-                int temp = lista[i];
+
+                int temp = lista[i];// intercambiar lista[i] y lista[j]
                 lista[i] = lista[j];
                 lista[j] = temp;
             }
         }
-        // poner el pivote en su lugar correcto
         int temp = lista[i + 1];
         lista[i + 1] = lista[fin];
         lista[fin] = temp;
@@ -228,16 +184,7 @@ public class ListaSecuencial {
         return i + 1;
     }
 
-    public int busquedaSecuencial() {
-        int val = 0;
-        do {
-            System.out.println("Que dato desea buscar (1 a 1000)?");
-            val = sc.nextInt();
-            if (val < 1 || val > 1000) {
-                System.out.println("Valor fuera del rango, digite nuevamente");
-            }
-        } while (val < 1 || val > 1000);
-
+    public int busquedaSecuencial(int val) {
         for (int i = 0; i < llenas; i++) {
             if (lista[i] == val) {
                 System.out.println("Dato " + val + " encontrado en posicion " + (i + 1));
@@ -248,8 +195,7 @@ public class ListaSecuencial {
         return -1;
     }
 
-    public int busquedaBinaria() {
-        int val = 0;
+    public int busquedaBinaria(int val) {
         boolean ordenada = true;
         for (int i = 0; i < llenas - 1; i++) {// verificar si está ordenada
             if (lista[i] > lista[i + 1]) {
@@ -262,14 +208,6 @@ public class ListaSecuencial {
             System.out.println("La lista no esta ordenada, primero ordene la lista");
             return -1;
         }
-
-        do {
-            System.out.println("Que dato desea buscar (1 a 1000)?");
-            val = sc.nextInt();
-            if (val < 1 || val > 1000) {
-                System.out.println("Valor fuera del rango, digite nuevamente");
-            }
-        } while (val < 1 || val > 1000);
 
         int low = 0;
         int high = llenas - 1;
